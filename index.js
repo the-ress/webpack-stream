@@ -217,6 +217,12 @@ module.exports = function (options, wp, done) {
     } else {
       handleCompiler(compiler);
     }
+
+    if (compiler.hooks && options.watch && !options.quiet) {
+      compiler.hooks.watchRun.tap("WebpackInfo", compilation => {
+        fancyLog("webpack compilation starting...");
+      });
+    }
   });
 
   // If entry point manually specified, trigger that
